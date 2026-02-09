@@ -2,73 +2,63 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta</title>
+    <title>La Tana di Tigrotta - Animated</title>
     <style>
-        body { 
-            background: #000; 
-            margin: 0; 
-            padding: 0;
-            display: flex; 
-            height: 100vh; 
-            width: 100vw;
-            overflow: hidden; /* Fondamentale per nascondere i bordi che sbordano */
-        }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; height: 100vh; width: 100vw; overflow: hidden; position: relative; }
         
-        #video-side { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 10px;
-            background: #000;
-            z-index: 2; /* Tiene il video sopra tutto */
-        }
+        /* Area Video */
+        #video-side { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; z-index: 10; background: rgba(0,0,0,0.5); }
         
-        #chat-side { 
-            flex: 2.5; 
-            position: relative;
-            background: #000;
-            overflow: hidden;
+        /* Area Chat */
+        #chat-side { flex: 2.5; background: #111; z-index: 10; border-left: 1px solid #333; }
+
+        .video-container { width: 95%; max-width: 350px; aspect-ratio: 16/9; border: 2px solid #00e5ff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 20px rgba(0,229,255,0.4); }
+        iframe { width: 100%; height: 100%; border: none; }
+        h1 { color: #00e5ff; margin-bottom: 15px; font-size: 20px; text-transform: uppercase; text-shadow: 0 0 10px #00e5ff; }
+
+        /* --- ANIMAZIONE EMOJI GIGANTI --- */
+        .emoji-fly {
+            position: absolute;
+            bottom: -100px;
+            font-size: 50px; /* Grandezza emoji */
+            user-select: none;
+            z-index: 1;
+            animation: fly 10s linear infinite;
+            opacity: 0;
         }
 
-        /* Il trucco: rendiamo l'iframe leggermente più grande del contenitore */
-        /* per spingere i bordi blu di Chatroll fuori dal visibile */
-        #chat-side iframe { 
-            position: absolute;
-            top: -2px;    /* sposta in su */
-            left: -2px;   /* sposta a sinistra */
-            width: calc(100% + 4px); /* allarga */
-            height: calc(100% + 4px); /* allunga */
-            border: none;
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
-        
-        .video-container { 
-            width: 95%; 
-            max-width: 350px; 
-            aspect-ratio: 16/9; 
-            border: 1px solid #333; 
-            border-radius: 8px; 
-            overflow: hidden;
-        }
-        
-        h1 { color: #fff; font-family: sans-serif; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; }
+
+        /* Posizioni diverse per le emoji */
+        .e1 { left: 5%; animation-duration: 8s; }
+        .e2 { left: 15%; animation-duration: 12s; animation-delay: 2s; }
+        .e3 { left: 25%; animation-duration: 10s; animation-delay: 5s; }
+        .e4 { left: 10%; animation-duration: 15s; animation-delay: 1s; }
     </style>
 </head>
 <body>
 
+    <div class="emoji-fly e1">🐯</div>
+    <div class="emoji-fly e2">💖</div>
+    <div class="emoji-fly e3">✨</div>
+    <div class="emoji-fly e4">🎤</div>
+    <div class="emoji-fly e1" style="left:20%; animation-delay:4s;">🎶</div>
+    <div class="emoji-fly e2" style="left:30%; animation-delay:7s;">🔥</div>
+
     <div id="video-side">
         <h1>🐯 LA TANA</h1>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
         </div>
     </div>
 
     <div id="chat-side">
-        <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
     </div>
 
 </body>
