@@ -5,9 +5,10 @@
     <title>La Tana di Tigrotta</title>
     <style>
         body { 
-            background: #000; 
+            /* SFONDO ELEGANTE: Un blu scurissimo che sfuma nel nero */
+            background: radial-gradient(circle, #001d24 0%, #000000 100%);
             color: #fff; 
-            font-family: sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             margin: 0; 
             display: flex; 
             height: 100vh; 
@@ -15,36 +16,42 @@
             overflow: hidden; 
         }
         
-        /* Area Video: PICCOLA a sinistra */
         #video-side { 
-            flex: 1; /* Prende poco spazio */
+            flex: 1; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
             padding: 10px;
-            background: #050505;
         }
         
-        /* Area Chat: BELLA LARGA a destra */
         #chat-side { 
-            flex: 2.5; /* Prende la maggior parte dello schermo */
-            background: #111; 
+            flex: 2.5; 
+            /* Qui la chat poggia su uno sfondo leggermente colorato */
+            background: rgba(0, 229, 255, 0.05); 
             border-left: 3px solid #00e5ff; 
         }
         
-        /* Box del Video: COMPATTO */
         .video-container { 
             width: 95%; 
             max-width: 350px; 
             aspect-ratio: 16/9; 
-            border: 2px solid #333; 
+            border: 2px solid #00e5ff; /* Bordo colorato come la chat */
             border-radius: 8px; 
             overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
         }
         
         iframe { width: 100%; height: 100%; border: none; }
-        h1 { color: #00e5ff; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; text-align: center; }
+        
+        h1 { 
+            color: #00e5ff; 
+            margin-bottom: 15px; 
+            font-size: 20px; 
+            text-transform: uppercase; 
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+        }
     </style>
 </head>
 <body>
