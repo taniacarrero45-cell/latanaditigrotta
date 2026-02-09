@@ -4,27 +4,57 @@
     <meta charset="UTF-8">
     <title>La Tana di Tigrotta</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        #video-section { flex: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-        #chat-section { flex: 1; background: #111; border-left: 2px solid #00e5ff; min-width: 350px; display: flex; flex-direction: column; }
-        .video-box { width: 100%; max-width: 900px; aspect-ratio: 16/9; border: 3px solid #333; border-radius: 10px; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
-        h1 { color: #00e5ff; margin-bottom: 15px; }
+        body { 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        #video-side { 
+            flex: 2; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        #chat-side { 
+            width: 450px; /* Larghezza esatta della tua chat */
+            background: #111; 
+            border-left: 2px solid #00e5ff; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-container { 
+            width: 100%; 
+            max-width: 850px; 
+            aspect-ratio: 16/9; 
+            border: 2px solid #333; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+        h1 { color: #00e5ff; margin-bottom: 10px; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <div id="video-section">
-        <h1>🐯 LA TANA DI TIGROTTA 🎤</h1>
-        <div class="video-box">
+    <div id="video-side">
+        <h1>🐯 La Tana di Tigrotta 🎤</h1>
+        <div class="video-container">
             <iframe src="https://www.youtube.com/embed/videoseries?list=PL4fGSI1pDJn6jWnvvv6vS_S_v00V6H9p1" 
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+            </iframe>
         </div>
     </div>
 
-    <div id="chat-section">
-        </div>
+    <div id="chat-side">
+        <iframe width="450px" height="600px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+    </div>
 
 </body>
 </html>
-<iframe width="450px" height="350px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
