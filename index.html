@@ -5,15 +5,13 @@
     <title>La Tana di Tigrotta</title>
     <style>
         body { 
-            background: #000; /* Nero assoluto per non avere distrazioni */
-            color: #fff; 
-            font-family: sans-serif; 
+            background: #000; 
             margin: 0; 
             padding: 0;
             display: flex; 
             height: 100vh; 
             width: 100vw;
-            overflow: hidden; 
+            overflow: hidden; /* Fondamentale per nascondere i bordi che sbordano */
         }
         
         #video-side { 
@@ -23,26 +21,38 @@
             align-items: center; 
             justify-content: center; 
             padding: 10px;
+            background: #000;
+            z-index: 2; /* Tiene il video sopra tutto */
         }
         
         #chat-side { 
             flex: 2.5; 
-            background: #000; /* Sfondo nero per la chat */
-            /* HO TOLTO IL BORDO BLU DA QUI */
-            border: none; 
+            position: relative;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* Il trucco: rendiamo l'iframe leggermente più grande del contenitore */
+        /* per spingere i bordi blu di Chatroll fuori dal visibile */
+        #chat-side iframe { 
+            position: absolute;
+            top: -2px;    /* sposta in su */
+            left: -2px;   /* sposta a sinistra */
+            width: calc(100% + 4px); /* allarga */
+            height: calc(100% + 4px); /* allunga */
+            border: none;
         }
         
         .video-container { 
             width: 95%; 
             max-width: 350px; 
             aspect-ratio: 16/9; 
-            border: 1px solid #333; /* Bordo grigio scuro quasi invisibile */
+            border: 1px solid #333; 
             border-radius: 8px; 
             overflow: hidden;
         }
         
-        iframe { width: 100%; height: 100%; border: none; }
-        h1 { color: #fff; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; }
+        h1 { color: #fff; font-family: sans-serif; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -58,7 +68,7 @@
     </div>
 
     <div id="chat-side">
-        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+        <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
     </div>
 
 </body>
