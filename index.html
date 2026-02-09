@@ -6,31 +6,45 @@
     <style>
         body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
-        /* Area Video: ora è più contenuta e centrata */
-        #video-side { flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; }
+        /* Area Video: ora più stretta per dare spazio alla chat */
+        #video-side { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+        }
         
-        /* Area Chat: rimane fissa e solida sulla destra */
-        #chat-side { width: 450px; background: #111; border-left: 2px solid #00e5ff; display: flex; align-items: center; justify-content: center; }
+        /* Area Chat: BELLA GRANDE */
+        #chat-side { 
+            flex: 1.5; 
+            background: #111; 
+            border-left: 3px solid #00e5ff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
         
-        /* Box del Video: ho ridotto la larghezza massima a 600px */
+        /* Box del Video: PICCOLO E ORDINATO */
         .video-container { 
-            width: 90%; 
-            max-width: 600px; /* Qui puoi cambiare la grandezza: più piccolo o più grande */
+            width: 100%; 
+            max-width: 450px; 
             aspect-ratio: 16/9; 
             border: 2px solid #333; 
-            border-radius: 12px; 
+            border-radius: 10px; 
             overflow: hidden;
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
         }
         
         iframe { width: 100%; height: 100%; border: none; }
-        h1 { color: #00e5ff; margin-bottom: 20px; font-size: 22px; text-transform: uppercase; }
+        h1 { color: #00e5ff; margin-bottom: 20px; font-size: 20px; text-transform: uppercase; text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="video-side">
-        <h1>🐯 La Tana di Tigrotta 🎤</h1>
+        <h1>🐯 La Tana <br> di Tigrotta 🎤</h1>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -40,7 +54,7 @@
     </div>
 
     <div id="chat-side">
-        <iframe width="450px" height="600px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowtransparency="true" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
     </div>
 
 </body>
