@@ -2,25 +2,31 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta</title>
+    <title>La Tana di Tigrotta - LIVE</title>
     <style>
         body { background: #000; margin: 0; display: flex; height: 100vh; width: 100vw; overflow: hidden; font-family: sans-serif; }
-        #video-side { width: 35%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-        #chat-side { width: 65%; height: 100%; border-left: 3px solid #ff0000; }
-        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
+        
+        /* WEBCAM A SINISTRA */
+        #webcam-side { width: 40%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
+        
+        /* CHAT A DESTRA */
+        #chat-side { width: 60%; height: 100%; border-left: 3px solid #ff0000; }
+        
+        .box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; background: #111; }
         iframe { width: 100%; height: 100%; border: none; }
-        h1 { color: #ff0000; font-size: 24px; margin-bottom: 20px; text-transform: uppercase; }
-        .emojis { font-size: 40px; margin-top: 20px; }
+        
+        h1 { color: #ff0000; font-size: 22px; margin-bottom: 15px; text-transform: uppercase; }
+        .status { color: #555; font-size: 12px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="video-side">
-        <h1>🐯 LA TANA</h1>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/do7qx_W3HzA" allowfullscreen></iframe>
+    <div id="webcam-side">
+        <h1>🐯 LIVE WEBCAM</h1>
+        <div class="box">
+            <iframe src="https://vdo.ninja/?view=latanaditigrotta&autoplay=1&nobar=1" allow="camera;microphone"></iframe>
         </div>
-        <div class="emojis">🤣 🔥 🐯</div>
+        <div class="status">In attesa della connessione...</div>
     </div>
 
     <div id="chat-side">
