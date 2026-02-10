@@ -52,12 +52,12 @@
         function changeRoom(name, videoId, chatPath, element) {
             // CONTROLLO PASSWORD PER IL PRIVÉ
             if (name === 'PRIVÉ') {
-                let psw = prompt("Inserisci la Parola d'Ordine per il Privé:");
+                let psw = prompt("Inserisci la Parola d'Ordine segreta:");
                 
-                // Qui sotto puoi cambiare "tigrotta" con la password che vuoi tu!
-                if (psw !== "tigrotta") {
-                    alert("Password errata! Accesso negato.");
-                    return; // Interrompe l'operazione
+                // LA TUA NUOVA PASSWORD TEDESCA
+                if (psw !== "verboten") {
+                    alert("Password errata! L'accesso al Privé è VIETATO.");
+                    return; 
                 }
             }
 
