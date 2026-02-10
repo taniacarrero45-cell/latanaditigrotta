@@ -43,7 +43,6 @@
                 <iframe id="video-frame" src="https://www.youtube.com/embed/do7qx_W3HzA?autoplay=1"></iframe>
             </div>
         </div>
-
         <div id="chat-side">
             <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
         </div>
@@ -51,11 +50,20 @@
 
     <script>
         function changeRoom(name, videoId, chatPath, element) {
-            // Cambia il titolo
+            // CONTROLLO PASSWORD PER IL PRIVÉ
+            if (name === 'PRIVÉ') {
+                let psw = prompt("Inserisci la Parola d'Ordine per il Privé:");
+                
+                // Qui sotto puoi cambiare "tigrotta" con la password che vuoi tu!
+                if (psw !== "tigrotta") {
+                    alert("Password errata! Accesso negato.");
+                    return; // Interrompe l'operazione
+                }
+            }
+
+            // Cambia contenuto stanza
             document.getElementById('room-title').innerText = "🐯 " + name;
-            // Cambia il video
             document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            // Cambia la chat (CARICA QUELLA SPECIFICA)
             document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + chatPath + "&platform=html";
             
             // Gestione bottoni attivi
