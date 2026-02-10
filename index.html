@@ -2,34 +2,61 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta</title>
+    <title>La Tana di Tigrotta - MULTI ROOM</title>
     <style>
-        body { background: #000; margin: 0; display: flex; height: 100vh; width: 100vw; overflow: hidden; font-family: sans-serif; }
+        body { background: #000; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: white; overflow: hidden; }
         
-        /* VIDEO A SINISTRA */
-        #video-side { width: 45%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
+        /* MENU IN ALTO */
+        nav { background: #111; padding: 15px; display: flex; justify-content: center; gap: 20px; border-bottom: 2px solid #ff0000; }
+        .btn { background: transparent; border: 2px solid #ff0000; color: #ff0000; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; transition: 0.3s; text-transform: uppercase; }
+        .btn:hover { background: #ff0000; color: white; box-shadow: 0 0 10px #ff0000; }
+        .active { background: #ff0000 !important; color: white !important; }
+
+        /* LAYOUT STANZE */
+        .container { display: flex; height: calc(100vh - 70px); width: 100vw; }
+        #video-side { width: 50%; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #chat-side { width: 50%; border-left: 2px solid #ff0000; }
         
-        /* CHAT A DESTRA */
-        #chat-side { width: 55%; height: 100%; border-left: 2px solid #ff0000; }
-        
-        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
+        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
         
-        h1 { color: #ff0000; font-size: 22px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { margin-bottom: 15px; text-shadow: 2px 2px 5px #ff0000; }
     </style>
 </head>
 <body>
 
-    <div id="video-side">
-        <h1>🐯 LA TANA</h1>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/do7qx_W3HzA?autoplay=1" allowfullscreen></iframe>
+    <nav>
+        <button class="btn active" onclick="changeRoom('SOGGIORNO', 'do7qx_W3HzA', '_wr3tgKh92U', this)">Soggiorno</button>
+        <button class="btn" onclick="changeRoom('MUSIC CLUB', 'jfKfPfyJRdk', '_wr3tgKh92U', this)">Music Club</button>
+        <button class="btn" onclick="changeRoom('PRIVÉ', '5qap5aO4i9A', '_wr3tgKh92U', this)">Privé</button>
+    </nav>
+
+    <div class="container">
+        <div id="video-side">
+            <h2 id="room-title">🐯 SOGGIORNO</h2>
+            <div class="video-box">
+                <iframe id="video-frame" src="https://www.youtube.com/embed/do7qx_W3HzA"></iframe>
+            </div>
+        </div>
+
+        <div id="chat-side">
+            <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
         </div>
     </div>
 
-    <div id="chat-side">
-        <iframe src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
-    </div>
+    <script>
+        function changeRoom(name, videoId, chatId, element) {
+            // Cambia titolo
+            document.getElementById('room-title').innerText = "🐯 " + name;
+            // Cambia video
+            document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            
+            // Rimuove classe attiva dai bottoni e la mette a quello cliccato
+            let buttons = document.getElementsByClassName('btn');
+            for (let btn of buttons) { btn.classList.remove('active'); }
+            element.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
