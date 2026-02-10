@@ -6,21 +6,28 @@
     <style>
         body { background: #000; margin: 0; font-family: 'Segoe UI', sans-serif; color: white; overflow: hidden; }
         
-        /* MENU IN ALTO - Più stiloso */
-        nav { background: #111; padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; border-bottom: 3px solid #ff0000; box-shadow: 0 5px 15px rgba(255,0,0,0.2); }
+        /* MENU IN ALTO */
+        nav { background: #111; padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; border-bottom: 3px solid #ff0000; }
         .btn { background: #222; border: 1px solid #ff0000; color: #ff0000; padding: 8px 15px; cursor: pointer; font-weight: bold; border-radius: 20px; transition: 0.3s; font-size: 13px; }
-        .btn:hover { background: #ff0000; color: white; box-shadow: 0 0 10px #ff0000; }
+        .btn:hover { background: #ff0000; color: white; }
         .active { background: #ff0000 !important; color: white !important; }
 
-        /* LAYOUT STANZE */
+        /* LAYOUT A TRE COLONNE */
         .container { display: flex; height: calc(100vh - 70px); width: 100vw; }
-        #video-side { width: 50%; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #1a0000 0%, #000 100%); }
-        #chat-side { width: 50%; border-left: 2px solid #ff0000; }
         
-        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; background: #000; box-shadow: 0 0 20px rgba(255,0,0,0.4); }
+        /* 1. Video a sinistra (Rimpicciolito) */
+        #video-side { width: 30%; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
+        
+        /* 2. Chat al centro (La parte più grande) */
+        #chat-side { width: 40%; border-left: 2px solid #333; border-right: 2px solid #333; height: 100%; }
+        
+        /* 3. Spazio a destra (Per bilanciare o per contenuti futuri) */
+        #right-side { width: 30%; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+
         iframe { width: 100%; height: 100%; border: none; }
-        
-        h2 { margin-bottom: 15px; color: #ff0000; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px #ff0000; }
+        h2 { font-size: 16px; color: #ff0000; text-transform: uppercase; margin-bottom: 10px; }
+        .info-text { color: #555; font-style: italic; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -44,16 +51,19 @@
         <div id="chat-side">
             <iframe src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
         </div>
+
+        <div id="right-side">
+            <div>
+                <h1 style="color: #ff0000; font-size: 40px; margin: 0;">🐯</h1>
+                <p class="info-text">Benvenuti nella Tana<br>Scegli la tua stanza dal menu!</p>
+            </div>
+        </div>
     </div>
 
     <script>
         function changeRoom(name, videoId, element) {
-            // Cambia il titolo della stanza
             document.getElementById('room-title').innerText = "🐯 " + name;
-            // Cambia il video di YouTube
             document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            
-            // Gestione bottoni attivi
             let buttons = document.getElementsByClassName('btn');
             for (let btn of buttons) { btn.classList.remove('active'); }
             element.classList.add('active');
