@@ -2,23 +2,19 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Stabile</title>
+    <title>La Tana di Tigrotta - Talky Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
         
         nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); box-shadow: var(--glow); position: relative; z-index: 10; }
-        .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
+        .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
 
-        .marquee { background: #050505; color: var(--colore-tema); font-size: 12px; padding: 3px; border-bottom: 1px solid #222; overflow: hidden; white-space: nowrap; }
-        .marquee span { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; font-weight: bold; text-shadow: var(--glow); }
-        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-
-        .container { display: flex; height: calc(100vh - 85px); width: 100vw; }
+        .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
         
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
@@ -38,10 +34,9 @@
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        .footer-area { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--glow); }
-        .smiles { display: flex; gap: 10px; flex-wrap: wrap; }
+        .footer-area { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; justify-content: space-between; align-items: center; }
+        .smiles { display: flex; gap: 10px; }
         .smiles span { font-size: 22px; cursor: pointer; }
-        .reset-btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 5px; border-radius: 5px; cursor: pointer; font-size: 10px; }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; text-shadow: var(--glow); }
     </style>
@@ -51,32 +46,25 @@
 <nav>
     <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
     <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
-    <button class="btn" onclick="chg('6NXnxTNIWkc','latanaditigrotta?id=_wr3tgKh92U',this)">🍸 LOUNGE</button>
-    <button class="btn" onclick="chg('5qap5aO4i9A','latanaditigrotta?id=_wr3tgKh92U',this)">🎮 GAMES</button>
     <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
     
     <div class="color-picker">
         <div class="dot" style="background: red;" onclick="changeColor('red')"></div>
         <div class="dot" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
         <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
-        <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
     </div>
 </nav>
 
-<div class="marquee">
-    <span>✨ BENVENUTI NELLA TANA DI TIGROTTA - SCEGLI IL TUO MOOD E GODITI LA SERATA! 🐯 ✨</span>
-</div>
-
 <div class="container">
     <div id="left">
-        <h3>LIVE CAM</h3>
+        <h3>LIVE CAM (TALKY)</h3>
         <div class="cam-box">
-            <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off" allow="camera; microphone; fullscreen"></iframe>
+            <iframe src="https://talky.io/latanaditigrotta" allow="camera; microphone; fullscreen"></iframe>
         </div>
 
-        <h3>YOUTUBE CONSOLE</h3>
+        <h3>YOUTUBE</h3>
         <div class="yt-input">
-            <input type="text" id="v-url" placeholder="Incolla link...">
+            <input type="text" id="v-url" placeholder="Link...">
             <button onclick="playV()">VAI</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
         </div>
@@ -90,10 +78,8 @@
         <div class="footer-area">
             <div class="smiles">
                 <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
-                <span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
-                <span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span><span onclick="cp('🖤')">🖤</span>
+                <span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
             </div>
-            <button class="reset-btn" onclick="resetChat()">🔄 RESET CHAT</button>
         </div>
     </div>
 </div>
@@ -104,16 +90,15 @@
         document.documentElement.style.setProperty('--colore-tema', color);
         document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
     }
-    function resetChat() { var f = document.getElementById('chat-frame'); f.src = f.src; }
-    function stopV() { document.getElementById('v-frame').src = "about:blank"; }
+    function stopV() { document.getElementById('v-frame').src = ""; }
     function playV() {
         var u = document.getElementById('v-url').value.trim();
         var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         var m = u.match(r);
-        if (m && m[7].length == 11) {
+        if (m) {
             document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + m[7] + "?autoplay=1";
             document.getElementById('v-url').value = "";
-        } else { alert("Link non valido!"); }
+        }
     }
     function chg(v, c, b) {
         if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
