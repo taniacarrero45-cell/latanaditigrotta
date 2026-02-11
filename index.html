@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - MULTI ROOM</title>
+    <title>La Tana di Tigrotta - LIVE WEBCAM</title>
     <style>
         body { background: #000; margin: 0; font-family: 'Segoe UI', sans-serif; color: white; overflow: hidden; }
         
@@ -15,12 +15,12 @@
         /* LAYOUT */
         .container { display: flex; height: calc(100vh - 70px); width: 100vw; }
         
-        /* VIDEO A SINISTRA */
-        #video-side { width: 25%; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #050505; }
-        .video-box { width: 100%; aspect-ratio: 16/9; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
+        /* WEBCAM A SINISTRA (Leggermente più grande per vedersi bene) */
+        #video-side { width: 35%; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #050505; }
+        .video-box { width: 100%; aspect-ratio: 4/3; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; background: #000; }
         
-        /* CHAT AL CENTRO/DESTRA */
-        #chat-side { width: 75%; border-left: 2px solid #ff0000; height: 100%; }
+        /* CHAT A DESTRA */
+        #chat-side { width: 65%; border-left: 2px solid #ff0000; height: 100%; }
 
         iframe { width: 100%; height: 100%; border: none; }
         h2 { font-size: 14px; color: #ff0000; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
@@ -29,44 +29,44 @@
 <body>
 
     <nav>
-        <button class="btn active" onclick="changeRoom('SOGGIORNO', 'do7qx_W3HzA', 'latanaditigrotta?id=_wr3tgKh92U', this)">🏠 SOGGIORNO</button>
-        <button class="btn" onclick="changeRoom('MUSIC CLUB', 'jfKfPfyJRdk', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎸 MUSIC CLUB</button>
-        <button class="btn" onclick="changeRoom('ZONA RELAX', 'TURbeOfR968', 'latanaditigrotta?id=_wr3tgKh92U', this)">☕ RELAX</button>
-        <button class="btn" onclick="changeRoom('CINEMA', '5qap5aO4i9A', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎬 CINEMA</button>
-        <button class="btn" onclick="changeRoom('PRIVÉ', 'l0U7SxXHkPY', 'stanza-privata?id=Vsn9Epp0kvU', this)">💃 PRIVÉ</button>
+        <button class="btn active" onclick="changeRoom('SOGGIORNO', 'latanaditigrotta?id=_wr3tgKh92U', this)">🏠 SOGGIORNO</button>
+        <button class="btn" onclick="changeRoom('MUSIC CLUB', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎸 MUSIC CLUB</button>
+        <button class="btn" onclick="changeRoom('ZONA RELAX', 'latanaditigrotta?id=_wr3tgKh92U', this)">☕ RELAX</button>
+        <button class="btn" onclick="changeRoom('CINEMA', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎬 CINEMA</button>
+        <button class="btn" onclick="changeRoom('PRIVÉ', 'stanza-privata?id=Vsn9Epp0kvU', this)">💃 PRIVÉ</button>
     </nav>
 
     <div class="container">
         <div id="video-side">
             <h2 id="room-title">🐯 SOGGIORNO</h2>
             <div class="video-box">
-                <iframe id="video-frame" src="https://www.youtube.com/embed/do7qx_W3HzA?autoplay=1"></iframe>
+                <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone; fullscreen; display-capture"></iframe>
             </div>
         </div>
+
         <div id="chat-side">
             <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
         </div>
     </div>
 
     <script>
-        function changeRoom(name, videoId, chatPath, element) {
+        function changeRoom(name, chatPath, element) {
             // CONTROLLO PASSWORD PER IL PRIVÉ
             if (name === 'PRIVÉ') {
                 let psw = prompt("Inserisci la Parola d'Ordine segreta:");
-                
-                // LA TUA NUOVA PASSWORD TEDESCA
                 if (psw !== "verboten") {
-                    alert("Password errata! L'accesso al Privé è VIETATO.");
+                    alert("Password errata!");
                     return; 
                 }
             }
 
-            // Cambia contenuto stanza
+            // Cambia il titolo della stanza
             document.getElementById('room-title').innerText = "🐯 " + name;
-            document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+
+            // Cambia la chat (la webcam resta lì dov'è, non si interrompe!)
             document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + chatPath + "&platform=html";
             
-            // Gestione bottoni attivi
+            // Gestione bottoni
             let buttons = document.getElementsByClassName('btn');
             for (let btn of buttons) { btn.classList.remove('active'); }
             element.classList.add('active');
