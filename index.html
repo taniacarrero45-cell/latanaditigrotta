@@ -2,44 +2,55 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta</title>
+    <title>La Tana di Tigrotta - Deluxe</title>
     <style>
-        :root { --colore-tema: red; }
+        :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
         
-        nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); }
-        .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .active { background: var(--colore-tema); color: white; }
+        /* Navigazione */
+        nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); box-shadow: var(--glow); position: relative; z-index: 10; }
+        .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
+        .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
 
-        .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
+        /* Scritta Scorrevole */
+        .marquee { background: #050505; color: var(--colore-tema); font-size: 12px; padding: 3px; border-bottom: 1px solid #222; overflow: hidden; white-space: nowrap; }
+        .marquee span { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; font-weight: bold; text-shadow: var(--glow); }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        .container { display: flex; height: calc(100vh - 85px); width: 100vw; }
         
-        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); }
+        /* SINISTRA */
+        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
         .cam-box { 
             width: 200px !important; height: 200px !important; 
-            border: 3px solid var(--colore-tema); border-radius: 5px; 
-            overflow: hidden; background: #000; margin-bottom: 20px;
+            border: 3px solid var(--colore-tema); border-radius: 10px; 
+            overflow: hidden; background: #000; margin-bottom: 15px; box-shadow: var(--glow);
         }
         .cam-box iframe { width: 100%; height: 100%; border: none; }
 
-        .yt-input { width: 200px; display: flex; gap: 3px; margin-bottom: 5px; }
+        /* YOUTUBE AREA */
+        .yt-input { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
         .yt-input input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; }
         .yt-input button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
-        .btn-off { background: #444 !important; }
+        .search-btn { background: #444 !important; width: 100%; margin-top: 2px; }
 
-        .video-screen { width: 200px; height: 112px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; }
-        #v-frame { width: 100%; height: 100%; border: none; }
+        .video-screen { width: 200px; height: 112px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; box-shadow: var(--glow); }
 
+        /* DESTRA */
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        .smiles { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; gap: 12px; flex-wrap: wrap; }
-        .smiles span { font-size: 25px; cursor: pointer; transition: 0.2s; }
+        /* FOOTER */
+        .footer-area { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--glow); }
+        .smiles { display: flex; gap: 10px; flex-wrap: wrap; }
+        .smiles span { font-size: 22px; cursor: pointer; }
+        .reset-btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 5px; border-radius: 5px; cursor: pointer; font-size: 10px; }
 
-        h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
+        h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; text-shadow: var(--glow); }
     </style>
 </head>
 <body>
@@ -47,14 +58,21 @@
 <nav>
     <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
     <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
+    <button class="btn" onclick="chg('6NXnxTNIWkc','latanaditigrotta?id=_wr3tgKh92U',this)">🍸 LOUNGE</button>
+    <button class="btn" onclick="chg('5qap5aO4i9A','latanaditigrotta?id=_wr3tgKh92U',this)">🎮 GAMES</button>
     <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
     
     <div class="color-picker">
         <div class="dot" style="background: red;" onclick="changeColor('red')"></div>
         <div class="dot" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
         <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
+        <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
     </div>
 </nav>
+
+<div class="marquee">
+    <span>✨ BENCOVENUTI NELLA TANA DI TIGROTTA - SCEGLI IL TUO MOOD, ALZA IL VOLUME E GODITI LA SERATA CON NOI! 🐯 ✨</span>
+</div>
 
 <div class="container">
     <div id="left">
@@ -63,11 +81,12 @@
             <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone"></iframe>
         </div>
 
-        <h3>YOUTUBE</h3>
+        <h3>YOUTUBE CONSOLE</h3>
         <div class="yt-input">
             <input type="text" id="v-url" placeholder="Incolla link...">
             <button onclick="playV()">VAI</button>
-            <button class="btn-off" onclick="stopV()">OFF</button>
+            <button onclick="stopV()" style="background:#444;">OFF</button>
+            <button class="search-btn" onclick="window.open('https://www.youtube.com','_blank')">🔍 CERCA VIDEO</button>
         </div>
         <div class="video-screen">
             <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
@@ -76,11 +95,13 @@
 
     <div id="right">
         <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
-        <div class="smiles">
-            <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
-            <span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
-            <span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span><span onclick="cp('🖤')">🖤</span>
-            <span onclick="cp('🍭')">🍭</span><span onclick="cp('🎁')">🎁</span><span onclick="cp('🎵')">🎵</span>
+        <div class="footer-area">
+            <div class="smiles">
+                <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
+                <span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
+                <span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span><span onclick="cp('🖤')">🖤</span>
+            </div>
+            <button class="reset-btn" onclick="resetChat()">🔄 RESET CHAT</button>
         </div>
     </div>
 </div>
@@ -90,29 +111,26 @@
 
     function changeColor(color) {
         document.documentElement.style.setProperty('--colore-tema', color);
+        document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
     }
 
-    // Funzione per spegnere il video caricando una pagina vuota
-    function stopV() {
-        document.getElementById('v-frame').src = "about:blank";
+    function resetChat() {
+        var frame = document.getElementById('chat-frame');
+        frame.src = frame.src;
     }
 
-    // Funzione potenziata per YouTube
+    function stopV() { document.getElementById('v-frame').src = "about:blank"; }
+
     function playV() {
         var urlInput = document.getElementById('v-url').value.trim();
         var videoId = "";
-
-        // Regex ultra-potente che riconosce tutti i link YouTube esistenti
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         var match = urlInput.match(regExp);
-        
         if (match && match[7].length == 11) {
             videoId = match[7];
             document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            document.getElementById('v-url').value = ""; // Pulisce la barra
-        } else {
-            alert("Link non riconosciuto! Assicurati di copiare tutto l'indirizzo.");
-        }
+            document.getElementById('v-url').value = "";
+        } else { alert("Link non valido!"); }
     }
 
     function chg(v, c, b) {
