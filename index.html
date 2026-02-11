@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Talky Edition</title>
+    <title>La Tana di Tigrotta</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -18,12 +18,15 @@
         
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
-        .cam-box { 
-            width: 200px !important; height: 200px !important; 
+        /* IL QUADRO CLICCABILE */
+        .cam-placeholder { 
+            width: 200px; height: 200px; 
             border: 3px solid var(--colore-tema); border-radius: 10px; 
-            overflow: hidden; background: #000; margin-bottom: 15px; box-shadow: var(--glow);
+            background: url('https://i.imgur.com/8K5yY7u.png') center/cover; /* Immagine Tigre */
+            cursor: pointer; position: relative; box-shadow: var(--glow); margin-bottom: 15px;
+            display: flex; align-items: flex-end; justify-content: center;
         }
-        .cam-box iframe { width: 100%; height: 100%; border: none; }
+        .cam-placeholder span { background: rgba(0,0,0,0.7); font-size: 10px; padding: 5px; width: 100%; text-align: center; border-radius: 0 0 8px 8px; }
 
         .yt-input { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
         .yt-input input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; }
@@ -34,11 +37,7 @@
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        .footer-area { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; justify-content: space-between; align-items: center; }
-        .smiles { display: flex; gap: 10px; }
-        .smiles span { font-size: 22px; cursor: pointer; }
-
-        h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; text-shadow: var(--glow); }
+        h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -57,9 +56,9 @@
 
 <div class="container">
     <div id="left">
-        <h3>LIVE CAM (TALKY)</h3>
-        <div class="cam-box">
-            <iframe src="https://talky.io/latanaditigrotta" allow="camera; microphone; fullscreen"></iframe>
+        <h3>MULTICAM</h3>
+        <div class="cam-placeholder" onclick="openCam()">
+            <span>CLICCA PER ATTIVARE CAM 🐯</span>
         </div>
 
         <h3>YOUTUBE</h3>
@@ -75,22 +74,22 @@
 
     <div id="right">
         <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
-        <div class="footer-area">
-            <div class="smiles">
-                <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
-                <span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
-            </div>
-        </div>
     </div>
 </div>
 
 <script>
-    function cp(e) { navigator.clipboard.writeText(e); }
+    function openCam() {
+        // Apre la cam in una finestrella separata di 400x400 pixel
+        window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=450,height=450,menubar=no,status=no,location=no');
+    }
+
     function changeColor(color) {
         document.documentElement.style.setProperty('--colore-tema', color);
         document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
     }
+
     function stopV() { document.getElementById('v-frame').src = ""; }
+    
     function playV() {
         var u = document.getElementById('v-url').value.trim();
         var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -100,6 +99,7 @@
             document.getElementById('v-url').value = "";
         }
     }
+
     function chg(v, c, b) {
         if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
         document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v + "?autoplay=1";
