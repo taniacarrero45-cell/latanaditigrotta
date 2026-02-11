@@ -4,26 +4,20 @@
     <meta charset="UTF-8">
     <title>La Tana di Tigrotta</title>
     <style>
-        /* Variabile per cambiare colore a tutto con un click */
         :root { --colore-tema: red; }
-
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
         
-        /* Navigazione alta */
         nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); }
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .active { background: var(--colore-tema); color: white; }
 
-        /* Tasti Colore */
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
 
         .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
         
-        /* COLONNA SINISTRA (Invariata) */
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); }
         
-        /* LA CAM QUADRATA (Invariata) */
         .cam-box { 
             width: 200px !important; height: 200px !important; 
             border: 3px solid var(--colore-tema); border-radius: 5px; 
@@ -31,22 +25,19 @@
         }
         .cam-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* YOUTUBE AREA */
         .yt-input { width: 200px; display: flex; gap: 3px; margin-bottom: 5px; }
         .yt-input input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; }
         .yt-input button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
-        .btn-off { background: #333 !important; }
+        .btn-off { background: #444 !important; }
 
-        .video-screen { width: 200px; height: 112px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; }
+        .video-screen { width: 200px; height: 112px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; }
+        #v-frame { width: 100%; height: 100%; border: none; }
 
-        /* CHAT CENTRALE (Invariata) */
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        /* SMILES SOTTO LA CHAT */
         .smiles { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; gap: 12px; flex-wrap: wrap; }
         .smiles span { font-size: 25px; cursor: pointer; transition: 0.2s; }
-        .smiles span:hover { transform: scale(1.3); }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
     </style>
@@ -74,7 +65,7 @@
 
         <h3>YOUTUBE</h3>
         <div class="yt-input">
-            <input type="text" id="v-url" placeholder="Link...">
+            <input type="text" id="v-url" placeholder="Incolla link...">
             <button onclick="playV()">VAI</button>
             <button class="btn-off" onclick="stopV()">OFF</button>
         </div>
@@ -101,20 +92,27 @@
         document.documentElement.style.setProperty('--colore-tema', color);
     }
 
+    // Funzione per spegnere il video caricando una pagina vuota
     function stopV() {
-        document.getElementById('v-frame').src = "";
+        document.getElementById('v-frame').src = "about:blank";
     }
 
+    // Funzione potenziata per YouTube
     function playV() {
-        var val = document.getElementById('v-url').value.trim();
-        var id = "";
-        if(val.indexOf('v=') !== -1) { id = val.split('v=')[1].split('&')[0]; } 
-        else if(val.indexOf('be/') !== -1) { id = val.split('be/')[1].split('?')[0]; }
+        var urlInput = document.getElementById('v-url').value.trim();
+        var videoId = "";
+
+        // Regex ultra-potente che riconosce tutti i link YouTube esistenti
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var match = urlInput.match(regExp);
         
-        if(id != "") {
-            document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
-            document.getElementById('v-url').value = "";
-        } else { alert("Copia il link intero!"); }
+        if (match && match[7].length == 11) {
+            videoId = match[7];
+            document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            document.getElementById('v-url').value = ""; // Pulisce la barra
+        } else {
+            alert("Link non riconosciuto! Assicurati di copiare tutto l'indirizzo.");
+        }
     }
 
     function chg(v, c, b) {
