@@ -5,48 +5,78 @@
     <title>La Tana di Tigrotta</title>
     <style>
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
-        nav { background: #111; padding: 10px; display: flex; justify-content: center; gap: 5px; border-bottom: 2px solid red; }
-        .btn { background: #222; border: 1px solid red; color: red; padding: 5px 10px; cursor: pointer; border-radius: 15px; font-size: 11px; }
+        
+        /* Navigazione alta */
+        nav { background: #111; padding: 10px; display: flex; justify-content: center; gap: 8px; border-bottom: 2px solid red; }
+        .btn { background: #222; border: 1px solid red; color: red; padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 12px; }
         .active { background: red; color: white; }
-        .container { display: flex; height: calc(100vh - 50px); }
+
+        .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
         
-        /* LATO CAM E VIDEO */
-        #left { width: 380px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid red; }
+        /* COLONNA SINISTRA (Ristretta per non rubare spazio) */
+        #left { 
+            width: 250px; /* Colonna più stretta */
+            padding: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background: #080808; 
+            border-right: 2px solid red; 
+        }
         
-        /* LA CAM QUADRATA */
-        .cam-box { width: 320px; height: 320px; border: 3px solid red; border-radius: 10px; overflow: hidden; background: #000; }
+        /* LA CAM - PICCOLO QUADRO (200x200) */
+        .cam-box { 
+            width: 200px !important; 
+            height: 200px !important; 
+            border: 3px solid red; 
+            border-radius: 5px; 
+            overflow: hidden; 
+            background: #000;
+            box-shadow: 0 0 10px rgba(255,0,0,0.5);
+            margin-bottom: 20px;
+        }
         .cam-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* YOUTUBE AREA */
-        .yt-input { margin-top: 15px; width: 320px; display: flex; gap: 5px; }
-        .yt-input input { flex: 1; padding: 8px; border-radius: 5px; border: 1px solid red; background: #111; color: white; }
-        .yt-input button { background: red; border: none; color: white; padding: 8px; cursor: pointer; font-weight: bold; border-radius: 5px; }
-        .video-screen { margin-top: 10px; width: 320px; height: 180px; border: 1px solid red; border-radius: 5px; overflow: hidden; }
+        /* YOUTUBE AREA (Proporzionata alla colonna stretta) */
+        .yt-input { width: 200px; display: flex; gap: 5px; margin-bottom: 5px; }
+        .yt-input input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid red; background: #111; color: white; font-size: 11px; }
+        .yt-input button { background: red; border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
+        .video-screen { width: 200px; height: 112px; border: 1px solid red; border-radius: 5px; overflow: hidden; }
 
-        /* CHAT E SMILE */
-        #right { flex-grow: 1; display: flex; flex-direction: column; }
-        #chat-frame { width: 100%; flex-grow: 1; border: none; }
+        /* CHAT CENTRALE (GRANDE) */
+        #right { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+        }
+        #chat-frame { width: 100%; height: 100%; border: none; }
+
+        /* SMILES SOTTO LA CHAT */
         .smiles { background: #111; padding: 10px; border-top: 1px solid red; display: flex; gap: 15px; }
         .smiles span { font-size: 25px; cursor: pointer; }
+
+        h3 { font-size: 10px; color: red; text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">SOGGIORNO</button>
-    <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">MUSIC CLUB</button>
-    <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">PRIVÉ</button>
+    <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
+    <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
+    <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
 </nav>
 
 <div class="container">
     <div id="left">
-        <p style="color:red; font-size:10px; margin:0;">LIVE CAM</p>
+        <h3>LIVE CAM</h3>
         <div class="cam-box">
             <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone"></iframe>
         </div>
 
+        <h3>YOUTUBE</h3>
         <div class="yt-input">
-            <input type="text" id="v-url" placeholder="Incolla link YouTube...">
+            <input type="text" id="v-url" placeholder="Link video...">
             <button onclick="playV()">VAI</button>
         </div>
         <div class="video-screen">
@@ -57,7 +87,7 @@
     <div id="right">
         <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
         <div class="smiles">
-            <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span><span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
+            <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span><span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span><span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span>
         </div>
     </div>
 </div>
@@ -66,7 +96,7 @@
     function cp(e) { navigator.clipboard.writeText(e); }
 
     function playV() {
-        var val = document.getElementById('v-url').value;
+        var val = document.getElementById('v-url').value.trim();
         var id = "";
         if(val.indexOf('v=') !== -1) {
             id = val.split('v=')[1].split('&')[0];
@@ -76,14 +106,18 @@
         
         if(id != "") {
             document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+            document.getElementById('v-url').value = "";
         } else {
-            alert("Copia il link intero del video!");
+            alert("Copia il link intero!");
         }
     }
 
     function chg(v, c, b) {
-        if(v=='l0U7SxXHkPY'){ var p=prompt("Pass:"); if(p!='verboten') return; }
-        document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v;
+        if(v=='l0U7SxXHkPY'){ 
+            var p=prompt("Password:"); 
+            if(p!='verboten') return; 
+        }
+        document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v + "?autoplay=1";
         document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
         var bs = document.getElementsByClassName('btn');
         for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
