@@ -2,45 +2,59 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - LIVE WEBCAM</title>
+    <title>La Tana di Tigrotta - LIVE & DJ SET</title>
     <style>
         body { background: #000; margin: 0; font-family: 'Segoe UI', sans-serif; color: white; overflow: hidden; }
         
-        /* MENU IN ALTO */
-        nav { background: #111; padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; border-bottom: 2px solid #ff0000; }
-        .btn { background: #222; border: 1px solid #ff0000; color: #ff0000; padding: 8px 15px; cursor: pointer; font-weight: bold; border-radius: 20px; transition: 0.3s; font-size: 13px; }
+        nav { background: #111; padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; border-bottom: 2px solid #ff0000; }
+        .btn { background: #222; border: 1px solid #ff0000; color: #ff0000; padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 20px; transition: 0.3s; font-size: 12px; }
         .btn:hover { background: #ff0000; color: white; }
         .active { background: #ff0000 !important; color: white !important; }
 
-        /* LAYOUT */
-        .container { display: flex; height: calc(100vh - 70px); width: 100vw; }
+        .container { display: flex; height: calc(100vh - 65px); width: 100vw; }
         
-        /* WEBCAM A SINISTRA (Leggermente più grande per vedersi bene) */
-        #video-side { width: 35%; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #050505; }
-        .video-box { width: 100%; aspect-ratio: 4/3; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; background: #000; }
-        
-        /* CHAT A DESTRA */
-        #chat-side { width: 65%; border-left: 2px solid #ff0000; height: 100%; }
+        #left-side { width: 30%; padding: 10px; display: flex; flex-direction: column; gap: 5px; background: #050505; border-right: 2px solid #ff0000; overflow-y: auto; }
+        .media-box { width: 100%; border: 1px solid #ff0000; border-radius: 8px; overflow: hidden; background: #000; }
+        .webcam-area { height: 200px; } 
+        .video-area { height: 200px; }   
 
+        /* BARRA URL */
+        .url-bar { display: flex; gap: 5px; margin-bottom: 5px; }
+        .url-bar input { flex: 1; background: #222; border: 1px solid #ff0000; color: white; padding: 5px; border-radius: 5px; font-size: 11px; }
+        .url-bar button { background: #ff0000; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        #chat-side { width: 70%; height: 100%; }
         iframe { width: 100%; height: 100%; border: none; }
-        h2 { font-size: 14px; color: #ff0000; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+        h3 { font-size: 11px; color: #ff0000; text-transform: uppercase; margin: 5px 0 2px 0; text-align: center; }
     </style>
 </head>
 <body>
 
     <nav>
-        <button class="btn active" onclick="changeRoom('SOGGIORNO', 'latanaditigrotta?id=_wr3tgKh92U', this)">🏠 SOGGIORNO</button>
-        <button class="btn" onclick="changeRoom('MUSIC CLUB', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎸 MUSIC CLUB</button>
-        <button class="btn" onclick="changeRoom('ZONA RELAX', 'latanaditigrotta?id=_wr3tgKh92U', this)">☕ RELAX</button>
-        <button class="btn" onclick="changeRoom('CINEMA', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎬 CINEMA</button>
-        <button class="btn" onclick="changeRoom('PRIVÉ', 'stanza-privata?id=Vsn9Epp0kvU', this)">💃 PRIVÉ</button>
+        <button class="btn active" onclick="changeRoom('SOGGIORNO', 'do7qx_W3HzA', 'latanaditigrotta?id=_wr3tgKh92U', this)">🏠 SOGGIORNO</button>
+        <button class="btn" onclick="changeRoom('MUSIC CLUB', 'jfKfPfyJRdk', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎸 MUSIC CLUB</button>
+        <button class="btn" onclick="changeRoom('ZONA RELAX', 'TURbeOfR968', 'latanaditigrotta?id=_wr3tgKh92U', this)">☕ RELAX</button>
+        <button class="btn" onclick="changeRoom('CINEMA', '5qap5aO4i9A', 'latanaditigrotta?id=_wr3tgKh92U', this)">🎬 CINEMA</button>
+        <button class="btn" onclick="changeRoom('PRIVÉ', 'l0U7SxXHkPY', 'stanza-privata?id=Vsn9Epp0kvU', this)">💃 PRIVÉ</button>
     </nav>
 
     <div class="container">
-        <div id="video-side">
-            <h2 id="room-title">🐯 SOGGIORNO</h2>
-            <div class="video-box">
+        <div id="left-side">
+            <h3>🎥 WEBCAM LIVE</h3>
+            <div class="media-box webcam-area">
                 <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone; fullscreen; display-capture"></iframe>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #333; margin: 10px 0;">
+
+            <h3>📺 COMANDO VIDEO</h3>
+            <div class="url-bar">
+                <input type="text" id="video-url" placeholder="Incolla link YouTube qui...">
+                <button onclick="loadCustomVideo()">PLAY</button>
+            </div>
+
+            <div class="media-box video-area">
+                <iframe id="video-frame" src="https://www.youtube.com/embed/do7qx_W3HzA?autoplay=1" allow="autoplay; encrypted-media; fullscreen"></iframe>
             </div>
         </div>
 
@@ -50,8 +64,25 @@
     </div>
 
     <script>
-        function changeRoom(name, chatPath, element) {
-            // CONTROLLO PASSWORD PER IL PRIVÉ
+        // Funzione per caricare il video incollando il link
+        function loadCustomVideo() {
+            let url = document.getElementById('video-url').value;
+            let videoId = "";
+
+            if (url.includes("v=")) {
+                videoId = url.split("v=")[1].split("&")[0];
+            } else if (url.includes("youtu.be/")) {
+                videoId = url.split("youtu.be/")[1].split("?")[0];
+            }
+
+            if (videoId !== "") {
+                document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            } else {
+                alert("Link non valido! Incolla un link YouTube corretto.");
+            }
+        }
+
+        function changeRoom(name, videoId, chatPath, element) {
             if (name === 'PRIVÉ') {
                 let psw = prompt("Inserisci la Parola d'Ordine segreta:");
                 if (psw !== "verboten") {
@@ -59,14 +90,9 @@
                     return; 
                 }
             }
-
-            // Cambia il titolo della stanza
-            document.getElementById('room-title').innerText = "🐯 " + name;
-
-            // Cambia la chat (la webcam resta lì dov'è, non si interrompe!)
+            document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
             document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + chatPath + "&platform=html";
             
-            // Gestione bottoni
             let buttons = document.getElementsByClassName('btn');
             for (let btn of buttons) { btn.classList.remove('active'); }
             element.classList.add('active');
