@@ -2,12 +2,11 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Deluxe</title>
+    <title>La Tana di Tigrotta - Clean Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
         
-        /* Navigazione */
         nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); box-shadow: var(--glow); position: relative; z-index: 10; }
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
@@ -15,14 +14,12 @@
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
 
-        /* Scritta Scorrevole */
         .marquee { background: #050505; color: var(--colore-tema); font-size: 12px; padding: 3px; border-bottom: 1px solid #222; overflow: hidden; white-space: nowrap; }
         .marquee span { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; font-weight: bold; text-shadow: var(--glow); }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
         .container { display: flex; height: calc(100vh - 85px); width: 100vw; }
         
-        /* SINISTRA */
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
         .cam-box { 
@@ -32,19 +29,15 @@
         }
         .cam-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* YOUTUBE AREA */
         .yt-input { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
         .yt-input input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; }
         .yt-input button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
-        .search-btn { background: #444 !important; width: 100%; margin-top: 2px; }
 
         .video-screen { width: 200px; height: 112px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; box-shadow: var(--glow); }
 
-        /* DESTRA */
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        /* FOOTER */
         .footer-area { background: #111; padding: 10px; border-top: 1px solid var(--colore-tema); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--glow); }
         .smiles { display: flex; gap: 10px; flex-wrap: wrap; }
         .smiles span { font-size: 22px; cursor: pointer; }
@@ -71,14 +64,14 @@
 </nav>
 
 <div class="marquee">
-    <span>✨ BENCOVENUTI NELLA TANA DI TIGROTTA - SCEGLI IL TUO MOOD, ALZA IL VOLUME E GODITI LA SERATA CON NOI! 🐯 ✨</span>
+    <span>✨ BENVENUTI NELLA TANA DI TIGROTTA - SCEGLI IL TUO MOOD, ALZA IL VOLUME E GODITI LA SERATA CON NOI! 🐯 ✨</span>
 </div>
 
 <div class="container">
     <div id="left">
         <h3>LIVE CAM</h3>
         <div class="cam-box">
-            <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone"></iframe>
+            <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off&people=off&background=off&minimal" allow="camera; microphone; fullscreen"></iframe>
         </div>
 
         <h3>YOUTUBE CONSOLE</h3>
@@ -86,7 +79,6 @@
             <input type="text" id="v-url" placeholder="Incolla link...">
             <button onclick="playV()">VAI</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
-            <button class="search-btn" onclick="window.open('https://www.youtube.com','_blank')">🔍 CERCA VIDEO</button>
         </div>
         <div class="video-screen">
             <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
