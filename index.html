@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - SQUARE CAM FIX</title>
+    <title>La Tana di Tigrotta - SMILE LEFT SIDE</title>
     <style>
         body { background: #000; margin: 0; font-family: 'Segoe UI', sans-serif; color: white; overflow: hidden; }
         
@@ -16,36 +16,40 @@
         /* COLONNA SINISTRA */
         #left-side { width: 440px; padding: 10px; display: flex; flex-direction: column; gap: 10px; background: #050505; border-right: 2px solid #ff0000; overflow-y: auto; align-items: center; }
         
-        /* BOX WEBCAM - FORZATO QUADRATO */
         .webcam-container { 
-            width: 400px; 
-            height: 400px; 
-            min-width: 400px; 
-            min-height: 400px; 
-            border: 3px solid #ff0000; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            position: relative;
+            width: 400px; height: 400px; 
+            border: 3px solid #ff0000; border-radius: 15px; 
+            overflow: hidden; box-shadow: 0 0 15px #ff0000;
+            animation: pulse-red 2s infinite;
         }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 5px #ff0000; } 50% { box-shadow: 0 0 20px #ff0000; } 100% { box-shadow: 0 0 5px #ff0000; } }
 
-        .webcam-container iframe { 
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* BOX YOUTUBE */
         .video-area { width: 400px; height: 225px; border: 1px solid #ff0000; border-radius: 8px; overflow: hidden; }
-
         .url-bar { display: flex; gap: 5px; width: 400px; }
         .url-bar input { flex: 1; background: #222; border: 1px solid #ff0000; color: white; padding: 8px; border-radius: 5px; }
         .url-bar button { background: #ff0000; border: none; color: white; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        #chat-side { flex-grow: 1; height: 100%; }
-        iframe { width: 100%; height: 100%; border: none; }
-        h3 { font-size: 13px; color: #ff0000; text-transform: uppercase; margin: 5px 0; text-align: center; font-weight: bold; }
+        /* COLONNA DESTRA */
+        #right-side { flex-grow: 1; display: flex; flex-direction: column; height: 100%; background: #000; }
+        #chat-frame { width: 100%; flex-grow: 1; border: none; }
+
+        /* BARRA SMILE IN BASSO A SINISTRA */
+        .smile-footer { 
+            background: #111; 
+            padding: 8px 15px; 
+            display: flex; 
+            justify-content: flex-start; /* SPOSTATI A SINISTRA */
+            gap: 15px; 
+            border-top: 1px solid #ff0000;
+        }
+        .smile-footer span { 
+            font-size: 26px; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+        }
+        .smile-footer span:hover { transform: scale(1.5); color: #ff0000; }
+
+        h3 { font-size: 12px; color: #ff0000; text-transform: uppercase; margin: 5px 0; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -64,34 +68,43 @@
             <div class="webcam-container">
                 <iframe src="https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off" allow="camera; microphone; fullscreen; display-capture"></iframe>
             </div>
-
             <h3 style="margin-top:15px;">📺 CONSOLE VIDEO</h3>
             <div class="url-bar">
                 <input type="text" id="video-url" placeholder="Incolla link YouTube...">
                 <button onclick="loadCustomVideo()">PLAY</button>
             </div>
-
             <div class="video-area">
                 <iframe id="video-frame" src="https://www.youtube.com/embed/do7qx_W3HzA?autoplay=1" allow="autoplay; encrypted-media; fullscreen"></iframe>
             </div>
         </div>
 
-        <div id="chat-side">
+        <div id="right-side">
             <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+            
+            <div class="smile-footer">
+                <span onclick="copySmile('🐯')">🐯</span>
+                <span onclick="copySmile('🔥')">🔥</span>
+                <span onclick="copySmile('💋')">💋</span>
+                <span onclick="copySmile('💎')">💎</span>
+                <span onclick="copySmile('🥂')">🥂</span>
+                <span onclick="copySmile('😈')">😈</span>
+                <span onclick="copySmile('🖤')">🖤</span>
+            </div>
         </div>
     </div>
 
     <script>
+        function copySmile(emoji) {
+            navigator.clipboard.writeText(emoji);
+        }
+
         function loadCustomVideo() {
             let url = document.getElementById('video-url').value;
             let videoId = "";
             if (url.includes("v=")) { videoId = url.split("v=")[1].split("&")[0]; } 
             else if (url.includes("youtu.be/")) { videoId = url.split("youtu.be/")[1].split("?")[0]; }
-
             if (videoId !== "") {
                 document.getElementById('video-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-            } else {
-                alert("Link non valido!");
             }
         }
 
