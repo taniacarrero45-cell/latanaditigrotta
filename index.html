@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Boutique Edition</title>
+    <title>La Tana di Tigrotta - Ambient Royal Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -10,6 +10,10 @@
         nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); box-shadow: var(--glow); position: relative; z-index: 10; }
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
+
+        /* PLAYER AMBIENT DISCRETO */
+        .ambient-player { margin-left: auto; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 15px; border: 1px dashed var(--colore-tema); }
+        .ambient-player span { font-size: 10px; color: #888; text-transform: uppercase; }
 
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
@@ -37,16 +41,8 @@
         #chat-frame { width: 100%; height: 100%; border: none; }
 
         .smile-container { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column-reverse; align-items: center; }
-        .smile-trigger { 
-            width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100;
-        }
-        .smile-menu { 
-            display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); 
-            padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; 
-            margin-bottom: 10px; box-shadow: var(--glow); justify-content: center;
-        }
+        .smile-trigger { width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100; }
+        .smile-menu { display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; box-shadow: var(--glow); justify-content: center; }
         .smile-menu span { font-size: 24px; cursor: pointer; }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
@@ -64,6 +60,12 @@
         <div class="dot" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
         <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
         <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
+    </div>
+
+    <div class="ambient-player">
+        <span>Mood Ambient:</span>
+        <button class="btn" id="playBtn" onclick="toggleAmbient()">PLAY 🎵</button>
+        <audio id="ambientAudio" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
     </div>
 </nav>
 
@@ -102,6 +104,22 @@
 </div>
 
 <script>
+    let isPlaying = false;
+    function toggleAmbient() {
+        const audio = document.getElementById('ambientAudio');
+        const btn = document.getElementById('playBtn');
+        if (!isPlaying) {
+            audio.play();
+            btn.innerText = "STOP 🔇";
+            btn.style.background = "#444";
+        } else {
+            audio.pause();
+            btn.innerText = "PLAY 🎵";
+            btn.style.background = "var(--colore-tema)";
+        }
+        isPlaying = !isPlaying;
+    }
+
     function toggleSmiles() {
         var menu = document.getElementById('sm-menu');
         menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
@@ -117,7 +135,6 @@
     }
 
     function openGame() {
-        // Ho scelto una categoria di giochi glamour, fashion e divertenti
         window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700');
     }
 
