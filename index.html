@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Lady Radio Edition</title>
+    <title>La Tana di Tigrotta - Lady Radio V3</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -11,11 +11,13 @@
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
-        .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
-        .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
+        /* PLAYER RADIO DIRETTO */
+        .radio-player { margin-left: auto; display: flex; align-items: center; gap: 10px; padding-right: 15px; }
+        #audio-stream { display: none; }
+        .play-radio { background: linear-gradient(to right, #FFD700, #ff4500); color: black !important; border: none !important; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
         .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
-        
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
         .cam-placeholder { 
@@ -26,9 +28,6 @@
         }
         .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
 
-        .console-box { width: 200px; display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        .console-box button { width: 100%; padding: 10px; font-weight: bold; border-radius: 10px; cursor: pointer; border: none; font-size: 11px; text-transform: uppercase; }
-        
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
@@ -45,13 +44,15 @@
 <nav>
     <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
     <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
-    <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
     
-    <div class="color-picker">
-        <div class="dot" style="background: red;" onclick="changeColor('red')"></div>
-        <div class="dot" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
-        <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
-        <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
+    <div class="radio-player">
+        <button class="btn play-radio" id="btn-radio" onclick="toggleRadio()">🎵 ATTIVA AUDIO LIVE</button>
+        <audio id="audio-stream" src="https://ice08.fluidstream.net/ibiza.mp3"></audio>
+    </div>
+
+    <div class="color-picker" style="display:flex; gap:5px; margin-left:10px;">
+        <div class="dot" style="width:15px; height:15px; border-radius:50%; background:red; cursor:pointer;" onclick="changeColor('red')"></div>
+        <div class="dot" style="width:15px; height:15px; border-radius:50%; background:#ff00ff; cursor:pointer;" onclick="changeColor('#ff00ff')"></div>
     </div>
 </nav>
 
@@ -62,13 +63,10 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>LADY CONSOLE 🎤</h3>
-        <div class="console-box">
-            <button onclick="openRadio()" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: black; box-shadow: 0 0 15px #FFD700;">📻 LADY RADIO LIVE</button>
-            <button onclick="openGame()" style="background: #ff69b4; color: white; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
-        </div>
+        <h3>LADY FUN</h3>
+        <button class="btn" onclick="openGame()" style="background: #ff69b4; color: white; width: 100%; border: none; padding: 10px; border-radius: 10px; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
         
-        <p style="font-size: 9px; color: #666; margin-top: 20px; text-align: center;">Clicca RADIO per sentire<br>le canzoni cantate! 🎶</p>
+        <p style="font-size: 9px; color: #555; margin-top: 15px; text-align: center;">La radio canta hit dance e pop!<br>Clicca il tasto oro in alto.</p>
     </div>
 
     <div id="right">
@@ -87,36 +85,31 @@
 </div>
 
 <script>
-    function openRadio() {
-        // Apre una playlist di HIT cantate in una finestrella a parte
-        window.open('https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1', 'radioPop', 'width=400,height=300');
+    let radioOn = false;
+    function toggleRadio() {
+        const audio = document.getElementById('audio-stream');
+        const btn = document.getElementById('btn-radio');
+        if (!radioOn) {
+            audio.play().catch(e => alert("Clicca di nuovo per confermare l'audio!"));
+            btn.innerText = "🔇 DISATTIVA AUDIO";
+            btn.style.animation = "none";
+            btn.style.background = "#444";
+        } else {
+            audio.pause();
+            btn.innerText = "🎵 ATTIVA AUDIO LIVE";
+            btn.style.animation = "pulse 2s infinite";
+            btn.style.background = "linear-gradient(to right, #FFD700, #ff4500)";
+        }
+        radioOn = !radioOn;
     }
 
-    function openGame() {
-        window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700');
-    }
-
-    function openCam() {
-        window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500');
-    }
-
-    function toggleSmiles() {
-        var menu = document.getElementById('sm-menu');
-        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    function cp(e) { 
-        navigator.clipboard.writeText(e);
-        toggleSmiles(); 
-    }
-
-    function changeColor(color) {
-        document.documentElement.style.setProperty('--colore-tema', color);
-        document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
-    }
+    function openCam() { window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500'); }
+    function openGame() { window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700'); }
+    function toggleSmiles() { var menu = document.getElementById('sm-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
+    function cp(e) { navigator.clipboard.writeText(e); toggleSmiles(); }
+    function changeColor(color) { document.documentElement.style.setProperty('--colore-tema', color); }
 
     function chg(v, c, b) {
-        if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
         document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
         var bs = document.getElementsByClassName('btn');
         for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
