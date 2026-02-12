@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Gaming Edition</title>
+    <title>La Tana di Tigrotta - Boutique Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -50,8 +50,6 @@
         .smile-menu span { font-size: 24px; cursor: pointer; }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
-        
-        .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; font-size: 12px; text-align: center; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -76,11 +74,11 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>CONSOLE & FUN</h3>
+        <h3>CONSOLE & STYLE</h3>
         <div class="console-box">
-            <input type="text" id="v-url" placeholder="Link YouTube...">
+            <input type="text" id="v-url" placeholder="YouTube Link...">
             <button onclick="playV()">VAI</button>
-            <button onclick="openGame()" style="background:#ff4500; box-shadow: 0 0 10px #ff4500;">🎮 SUPER GAME</button>
+            <button onclick="openGame()" style="background: #ff69b4; color: white; box-shadow: 0 0 15px #ff69b4;">💄 BOUTIQUE GAMES</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
         </div>
         <div class="display-screen">
@@ -96,8 +94,8 @@
             <div class="smile-menu" id="sm-menu">
                 <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
                 <span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
-                <span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span><span onclick="cp('🖤')">🖤</span>
-                <span onclick="cp('🍭')">🍭</span><span onclick="cp('🎁')">🎁</span><span onclick="cp('🎵')">🎵</span>
+                <span onclick="cp('✨')">✨</span><span onclick="cp('💄')">💄</span><span onclick="cp('👜')">👜</span>
+                <span onclick="cp('👗')">👗</span><span onclick="cp('🍭')">🍭</span><span onclick="cp('🎵')">🎵</span>
             </div>
         </div>
     </div>
@@ -119,8 +117,8 @@
     }
 
     function openGame() {
-        // Ho scelto un link che ti porta a una selezione di giochi fighi (serpenti, puzzle, arcade)
-        window.open('https://slither.io/', 'gameBox', 'width=900,height=700,menubar=no,toolbar=no');
+        // Ho scelto una categoria di giochi glamour, fashion e divertenti
+        window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700');
     }
 
     function changeColor(color) {
