@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Lady Radio V3</title>
+    <title>La Tana di Tigrotta - Official Supreme</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -11,14 +11,12 @@
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
-        /* PLAYER RADIO DIRETTO */
-        .radio-player { margin-left: auto; display: flex; align-items: center; gap: 10px; padding-right: 15px; }
+        .radio-player { margin-left: auto; display: flex; align-items: center; gap: 10px; }
         #audio-stream { display: none; }
-        .play-radio { background: linear-gradient(to right, #FFD700, #ff4500); color: black !important; border: none !important; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
         .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
-        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
+        
+        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); overflow-y: auto; }
         
         .cam-placeholder { 
             width: 200px; height: 200px; border: 3px solid var(--colore-tema); border-radius: 10px; 
@@ -27,6 +25,13 @@
             display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
         }
         .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
+
+        .display-screen { width: 200px; height: 120px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; margin-bottom: 10px; }
+        .display-screen iframe { width: 100%; height: 100%; border: none; }
+
+        .console-box { width: 200px; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+        .console-box input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 10px; }
+        .console-box button { background: var(--colore-tema); border: none; color: white; padding: 5px 10px; cursor: pointer; font-size: 10px; border-radius: 5px; }
 
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
         #chat-frame { width: 100%; height: 100%; border: none; }
@@ -44,13 +49,14 @@
 <nav>
     <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
     <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
+    <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
     
     <div class="radio-player">
-        <button class="btn play-radio" id="btn-radio" onclick="toggleRadio()">🎵 ATTIVA AUDIO LIVE</button>
+        <button class="btn" id="btn-radio" onclick="toggleRadio()" style="background:linear-gradient(to right, #FFD700, #ff4500); color:black;">🎵 RADIO ON/OFF</button>
         <audio id="audio-stream" src="https://ice08.fluidstream.net/ibiza.mp3"></audio>
     </div>
 
-    <div class="color-picker" style="display:flex; gap:5px; margin-left:10px;">
+    <div class="color-picker" style="display:flex; gap:5px; margin-left:15px;">
         <div class="dot" style="width:15px; height:15px; border-radius:50%; background:red; cursor:pointer;" onclick="changeColor('red')"></div>
         <div class="dot" style="width:15px; height:15px; border-radius:50%; background:#ff00ff; cursor:pointer;" onclick="changeColor('#ff00ff')"></div>
     </div>
@@ -63,10 +69,17 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
+        <h3>TV CONSOLE</h3>
+        <div class="display-screen">
+            <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
+        </div>
+        <div class="console-box">
+            <input type="text" id="v-url" placeholder="Incolla Link YouTube...">
+            <button onclick="playV()">VAI</button>
+        </div>
+
         <h3>LADY FUN</h3>
         <button class="btn" onclick="openGame()" style="background: #ff69b4; color: white; width: 100%; border: none; padding: 10px; border-radius: 10px; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
-        
-        <p style="font-size: 9px; color: #555; margin-top: 15px; text-align: center;">La radio canta hit dance e pop!<br>Clicca il tasto oro in alto.</p>
     </div>
 
     <div id="right">
@@ -90,17 +103,32 @@
         const audio = document.getElementById('audio-stream');
         const btn = document.getElementById('btn-radio');
         if (!radioOn) {
-            audio.play().catch(e => alert("Clicca di nuovo per confermare l'audio!"));
-            btn.innerText = "🔇 DISATTIVA AUDIO";
-            btn.style.animation = "none";
-            btn.style.background = "#444";
+            audio.play();
+            btn.innerText = "🔇 RADIO OFF";
         } else {
             audio.pause();
-            btn.innerText = "🎵 ATTIVA AUDIO LIVE";
-            btn.style.animation = "pulse 2s infinite";
-            btn.style.background = "linear-gradient(to right, #FFD700, #ff4500)";
+            btn.innerText = "🎵 RADIO ON";
         }
         radioOn = !radioOn;
+    }
+
+    function playV() {
+        var u = document.getElementById('v-url').value.trim();
+        var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var m = u.match(r);
+        if (m) {
+            document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + m[7] + "?autoplay=1";
+            document.getElementById('v-url').value = "";
+        }
+    }
+
+    function chg(v, c, b) {
+        if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
+        document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v + "?autoplay=1";
+        document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
+        var bs = document.getElementsByClassName('btn');
+        for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
+        b.classList.add('active');
     }
 
     function openCam() { window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500'); }
@@ -108,13 +136,6 @@
     function toggleSmiles() { var menu = document.getElementById('sm-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
     function cp(e) { navigator.clipboard.writeText(e); toggleSmiles(); }
     function changeColor(color) { document.documentElement.style.setProperty('--colore-tema', color); }
-
-    function chg(v, c, b) {
-        document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
-        var bs = document.getElementsByClassName('btn');
-        for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
-        b.classList.add('active');
-    }
 </script>
 </body>
 </html>
