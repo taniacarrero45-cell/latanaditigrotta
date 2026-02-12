@@ -1,20 +1,150 @@
-<h3>CONSOLE & FUN</h3>
-        <div class="yt-input">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>La Tana di Tigrotta - Games & Chat</title>
+    <style>
+        :root { --colore-tema: red; --glow: 0 0 10px red; }
+        body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
+        
+        nav { background: #111; padding: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; border-bottom: 2px solid var(--colore-tema); box-shadow: var(--glow); position: relative; z-index: 10; }
+        .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
+        .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
+
+        .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
+        .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
+
+        .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
+        
+        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
+        
+        .cam-placeholder { 
+            width: 200px; height: 200px; border: 3px solid var(--colore-tema); border-radius: 10px; 
+            background: url('https://i.imgur.com/8K5yY7u.png') center/cover; cursor: pointer; 
+            position: relative; box-shadow: var(--glow); margin-bottom: 15px;
+            display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+        }
+        .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
+
+        .console-box { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
+        .console-box input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; width: 120px; }
+        .console-box button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
+        
+        .display-screen { width: 200px; height: 150px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; box-shadow: var(--glow); }
+        .display-screen iframe { width: 100%; height: 100%; border: none; }
+
+        #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
+        #chat-frame { width: 100%; height: 100%; border: none; }
+
+        .smile-container { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column-reverse; align-items: center; }
+        .smile-trigger { 
+            width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100;
+        }
+        .smile-menu { 
+            display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); 
+            padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; 
+            margin-bottom: 10px; box-shadow: var(--glow); justify-content: center;
+        }
+        .smile-menu span { font-size: 24px; cursor: pointer; }
+
+        h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
+    <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
+    <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
+    
+    <div class="color-picker">
+        <div class="dot" style="background: red;" onclick="changeColor('red')"></div>
+        <div class="dot" style="background: #ff00ff;" onclick="changeColor('#ff00ff')"></div>
+        <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
+        <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
+    </div>
+</nav>
+
+<div class="container">
+    <div id="left">
+        <h3>MULTICAM</h3>
+        <div class="cam-placeholder" onclick="openCam()">
+            <span>ENTRA NELLA TANA 🐯</span>
+        </div>
+
+        <h3>YOUTUBE & GAMES</h3>
+        <div class="console-box">
             <input type="text" id="v-url" placeholder="Link YouTube...">
             <button onclick="playV()">VAI</button>
             <button onclick="playGame()" style="background:#228b22;">🎮 GIOCO</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
         </div>
-        
-        <div class="video-screen" id="console-display">
+        <div class="display-screen">
             <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
         </div>
+    </div>
+
+    <div id="right">
+        <iframe id="chat-frame" src="https://chatroll.com/embed/chat/latanaditigrotta?id=_wr3tgKh92U&platform=html"></iframe>
+        
+        <div class="smile-container">
+            <div class="smile-trigger" onclick="toggleSmiles()">🐯</div>
+            <div class="smile-menu" id="sm-menu">
+                <span onclick="cp('🐯')">🐯</span><span onclick="cp('🔥')">🔥</span><span onclick="cp('💋')">💋</span>
+                <span onclick="cp('💎')">💎</span><span onclick="cp('🥂')">🥂</span><span onclick="cp('🌹')">🌹</span>
+                <span onclick="cp('✨')">✨</span><span onclick="cp('😈')">😈</span><span onclick="cp('🖤')">🖤</span>
+                <span onclick="cp('🍭')">🍭</span><span onclick="cp('🎁')">🎁</span><span onclick="cp('🎵')">🎵</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    function playGame() {
-        // Ho scelto un Tetris classico e pulito, ma possiamo cambiarlo!
-        document.getElementById('v-frame').src = "https://www.tetrisjs.com/"; 
+    function toggleSmiles() {
+        var menu = document.getElementById('sm-menu');
+        menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
     }
+
+    function cp(e) { 
+        navigator.clipboard.writeText(e);
+        toggleSmiles(); 
+    }
+
+    function openCam() {
+        window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500');
+    }
+
+    function changeColor(color) {
+        document.documentElement.style.setProperty('--colore-tema', color);
+        document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
+    }
+
+    function stopV() { document.getElementById('v-frame').src = "about:blank"; }
     
-    // Il resto delle tue funzioni (playV, stopV, chg, ecc.) rimangono uguali
+    function playGame() {
+        document.getElementById('v-frame').src = "https://www.tetrisjs.com/";
+    }
+
+    function playV() {
+        var u = document.getElementById('v-url').value.trim();
+        var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var m = u.match(r);
+        if (m) {
+            document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + m[7] + "?autoplay=1";
+            document.getElementById('v-url').value = "";
+        }
+    }
+
+    function chg(v, c, b) {
+        if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
+        document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v + "?autoplay=1";
+        document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
+        var bs = document.getElementsByClassName('btn');
+        for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
+        b.classList.add('active');
+    }
 </script>
+</body>
+</html>
