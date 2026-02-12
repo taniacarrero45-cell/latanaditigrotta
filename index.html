@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Radio Live</title>
+    <title>La Tana di Tigrotta - Lady Radio Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -16,7 +16,7 @@
 
         .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
         
-        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); overflow-y: auto; }
+        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
         
         .cam-placeholder { 
             width: 200px; height: 200px; border: 3px solid var(--colore-tema); border-radius: 10px; 
@@ -26,14 +26,8 @@
         }
         .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
 
-        /* NUOVA SEZIONE RADIO VISIBILE */
-        .radio-section { width: 210px; background: #111; border: 1px solid var(--colore-tema); border-radius: 10px; padding: 10px; margin-top: 10px; box-shadow: var(--glow); }
-        .radio-section h4 { font-size: 10px; margin: 0 0 8px 0; color: var(--colore-tema); text-align: center; }
-        #radio-frame { width: 100%; height: 80px; border: none; border-radius: 5px; }
-
-        .console-box { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin: 10px 0; }
-        .console-box input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; width: 120px; }
-        .console-box button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
+        .console-box { width: 200px; display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .console-box button { width: 100%; padding: 10px; font-weight: bold; border-radius: 10px; cursor: pointer; border: none; font-size: 11px; text-transform: uppercase; }
         
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
         #chat-frame { width: 100%; height: 100%; border: none; }
@@ -68,21 +62,13 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>LADY RADIO 🎶</h3>
-        <div class="radio-section">
-            <h4>HIT CANTATE LIVE</h4>
-            <iframe id="radio-frame" src="https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&index=1" allow="autoplay"></iframe>
-            <div style="text-align:center; margin-top:5px;">
-                <button class="btn" style="font-size:9px;" onclick="changeRadio()">CAMBIA GENERE</button>
-            </div>
-        </div>
-
-        <h3>STYLE CONSOLE</h3>
+        <h3>LADY CONSOLE 🎤</h3>
         <div class="console-box">
-            <button onclick="openGame()" style="background: #ff69b4; color: white; width:100%; margin-bottom:5px; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
-            <input type="text" id="v-url" placeholder="Cerca video...">
-            <button onclick="playV()">VAI</button>
+            <button onclick="openRadio()" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: black; box-shadow: 0 0 15px #FFD700;">📻 LADY RADIO LIVE</button>
+            <button onclick="openGame()" style="background: #ff69b4; color: white; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
         </div>
+        
+        <p style="font-size: 9px; color: #666; margin-top: 20px; text-align: center;">Clicca RADIO per sentire<br>le canzoni cantate! 🎶</p>
     </div>
 
     <div id="right">
@@ -101,14 +87,17 @@
 </div>
 
 <script>
-    function changeRadio() {
-        const r = document.getElementById('radio-frame');
-        // Alterna tra due playlist di canzoni famose
-        if(r.src.includes('IncKtPojQqxkg2GaonB9zFp45h')) {
-            r.src = "https://www.youtube.com/embed/videoseries?list=PLw-VjHDlEOgs658kAHR_LAa43-hb-71z_&autoplay=1";
-        } else {
-            r.src = "https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1";
-        }
+    function openRadio() {
+        // Apre una playlist di HIT cantate in una finestrella a parte
+        window.open('https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1', 'radioPop', 'width=400,height=300');
+    }
+
+    function openGame() {
+        window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700');
+    }
+
+    function openCam() {
+        window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500');
     }
 
     function toggleSmiles() {
@@ -121,33 +110,13 @@
         toggleSmiles(); 
     }
 
-    function openCam() {
-        window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500');
-    }
-
-    function openGame() {
-        window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700');
-    }
-
     function changeColor(color) {
         document.documentElement.style.setProperty('--colore-tema', color);
         document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
     }
 
-    function playV() {
-        var u = document.getElementById('v-url').value.trim();
-        var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        var m = u.match(r);
-        if (m) {
-            // Se l'utente mette un video manuale, carichiamo quello
-            alert("Carico il tuo video!");
-            window.open("https://www.youtube.com/embed/" + m[7] + "?autoplay=1", "videoBox", "width=600,height=400");
-        }
-    }
-
     function chg(v, c, b) {
         if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
-        // La radio continua a suonare anche se cambi stanza!
         document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
         var bs = document.getElementsByClassName('btn');
         for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
