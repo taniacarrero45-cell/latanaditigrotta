@@ -56,7 +56,7 @@
 
 <nav>
     <button class="btn active" onclick="chg('do7qx_W3HzA','latanaditigrotta?id=_wr3tgKh92U',this)">🏠 SOGGIORNO</button>
-    <button class="btn" onclick="chg('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
+    <button class="btn" onclick="jf('jfKfPfyJRdk','latanaditigrotta?id=_wr3tgKh92U',this)">🎸 MUSIC CLUB</button>
     <button class="btn" onclick="chg('l0U7SxXHkPY','stanza-privata?id=Vsn9Epp0kvU',this)">💃 PRIVÉ</button>
     
     <div class="color-picker">
@@ -78,7 +78,7 @@
         <div class="console-box">
             <input type="text" id="v-url" placeholder="Link YouTube...">
             <button onclick="playV()">VAI</button>
-            <button onclick="playGame()" style="background:#228b22;">🎮 GIOCO</button>
+            <button onclick="openGame()" style="background:#228b22;">🎮 GIOCO</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
         </div>
         <div class="display-screen">
@@ -116,6 +116,11 @@
         window.open('https://whereby.com/latanaditigrotta?embed&chat=off&info=off&logo=off&displayName=off', 'camBox', 'width=500,height=500');
     }
 
+    function openGame() {
+        // Apre un sito di mini-giochi classici in una finestra a parte
+        window.open('https://www.google.com/logos/2010/pacman10-i.html', 'gameBox', 'width=600,height=400');
+    }
+
     function changeColor(color) {
         document.documentElement.style.setProperty('--colore-tema', color);
         document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
@@ -123,11 +128,6 @@
 
     function stopV() { document.getElementById('v-frame').src = "about:blank"; }
     
-    function playGame() {
-        // Ho messo 2048, un gioco che non viene MAI bloccato e funziona benissimo
-        document.getElementById('v-frame').src = "https://play2048.co/";
-    }
-
     function playV() {
         var u = document.getElementById('v-url').value.trim();
         var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
