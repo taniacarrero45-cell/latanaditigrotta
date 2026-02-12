@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Royal Music</title>
+    <title>La Tana di Tigrotta - Radio Live</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -11,15 +11,12 @@
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
-        .ambient-player { margin-left: auto; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 15px; border: 1px dashed var(--colore-tema); }
-        .ambient-player span { font-size: 10px; color: #888; text-transform: uppercase; }
-
         .color-picker { display: flex; gap: 5px; margin-left: 15px; border-left: 1px solid #333; padding-left: 15px; }
         .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white; }
 
         .container { display: flex; height: calc(100vh - 60px); width: 100vw; }
         
-        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); }
+        #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); overflow-y: auto; }
         
         .cam-placeholder { 
             width: 200px; height: 200px; border: 3px solid var(--colore-tema); border-radius: 10px; 
@@ -29,26 +26,24 @@
         }
         .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
 
-        .console-box { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 5px; }
+        /* NUOVA SEZIONE RADIO VISIBILE */
+        .radio-section { width: 210px; background: #111; border: 1px solid var(--colore-tema); border-radius: 10px; padding: 10px; margin-top: 10px; box-shadow: var(--glow); }
+        .radio-section h4 { font-size: 10px; margin: 0 0 8px 0; color: var(--colore-tema); text-align: center; }
+        #radio-frame { width: 100%; height: 80px; border: none; border-radius: 5px; }
+
+        .console-box { width: 200px; display: flex; flex-wrap: wrap; gap: 3px; margin: 10px 0; }
         .console-box input { flex: 1; padding: 5px; border-radius: 5px; border: 1px solid var(--colore-tema); background: #111; color: white; font-size: 11px; width: 120px; }
         .console-box button { background: var(--colore-tema); border: none; color: white; padding: 5px; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 5px; }
         
-        .display-screen { width: 200px; height: 150px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; box-shadow: var(--glow); position: relative; }
-        .display-screen iframe { width: 100%; height: 100%; border: none; }
-
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
-        /* Icona Tigre e Menu Smile */
         .smile-container { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column-reverse; align-items: center; }
         .smile-trigger { width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100; }
         .smile-menu { display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; box-shadow: var(--glow); justify-content: center; }
         .smile-menu span { font-size: 24px; cursor: pointer; }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
-
-        /* Lettore nascosto per le canzoni */
-        #hidden-player { width: 0; height: 0; position: absolute; visibility: hidden; }
     </style>
 </head>
 <body>
@@ -64,14 +59,7 @@
         <div class="dot" style="background: #ffd700;" onclick="changeColor('#ffd700')"></div>
         <div class="dot" style="background: #00ffff;" onclick="changeColor('#00ffff')"></div>
     </div>
-
-    <div class="ambient-player">
-        <span>Canzoni Radio:</span>
-        <button class="btn" id="radioBtn" onclick="toggleRadio()">PLAY 🎶</button>
-    </div>
 </nav>
-
-<iframe id="hidden-player" src="" allow="autoplay"></iframe>
 
 <div class="container">
     <div id="left">
@@ -80,15 +68,20 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>CONSOLE & STYLE</h3>
-        <div class="console-box">
-            <input type="text" id="v-url" placeholder="Cerca o incolla...">
-            <button onclick="playV()">VAI</button>
-            <button onclick="openGame()" style="background: #ff69b4; color: white; box-shadow: 0 0 15px #ff69b4;">💄 BOUTIQUE GAMES</button>
-            <button onclick="stopV()" style="background:#444;">OFF</button>
+        <h3>LADY RADIO 🎶</h3>
+        <div class="radio-section">
+            <h4>HIT CANTATE LIVE</h4>
+            <iframe id="radio-frame" src="https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&index=1" allow="autoplay"></iframe>
+            <div style="text-align:center; margin-top:5px;">
+                <button class="btn" style="font-size:9px;" onclick="changeRadio()">CAMBIA GENERE</button>
+            </div>
         </div>
-        <div class="display-screen">
-            <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
+
+        <h3>STYLE CONSOLE</h3>
+        <div class="console-box">
+            <button onclick="openGame()" style="background: #ff69b4; color: white; width:100%; margin-bottom:5px; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
+            <input type="text" id="v-url" placeholder="Cerca video...">
+            <button onclick="playV()">VAI</button>
         </div>
     </div>
 
@@ -108,21 +101,14 @@
 </div>
 
 <script>
-    let radioOn = false;
-    function toggleRadio() {
-        const player = document.getElementById('hidden-player');
-        const btn = document.getElementById('radioBtn');
-        if (!radioOn) {
-            // Ho messo una playlist di canzoni pop/cantate famose
-            player.src = "https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1";
-            btn.innerText = "STOP 🔇";
-            btn.style.background = "#444";
+    function changeRadio() {
+        const r = document.getElementById('radio-frame');
+        // Alterna tra due playlist di canzoni famose
+        if(r.src.includes('IncKtPojQqxkg2GaonB9zFp45h')) {
+            r.src = "https://www.youtube.com/embed/videoseries?list=PLw-VjHDlEOgs658kAHR_LAa43-hb-71z_&autoplay=1";
         } else {
-            player.src = "";
-            btn.innerText = "PLAY 🎶";
-            btn.style.background = "var(--colore-tema)";
+            r.src = "https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1";
         }
-        radioOn = !radioOn;
     }
 
     function toggleSmiles() {
@@ -148,21 +134,20 @@
         document.documentElement.style.setProperty('--glow', '0 0 15px ' + color);
     }
 
-    function stopV() { document.getElementById('v-frame').src = "about:blank"; }
-    
     function playV() {
         var u = document.getElementById('v-url').value.trim();
         var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         var m = u.match(r);
         if (m) {
-            document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + m[7] + "?autoplay=1";
-            document.getElementById('v-url').value = "";
+            // Se l'utente mette un video manuale, carichiamo quello
+            alert("Carico il tuo video!");
+            window.open("https://www.youtube.com/embed/" + m[7] + "?autoplay=1", "videoBox", "width=600,height=400");
         }
     }
 
     function chg(v, c, b) {
         if(v=='l0U7SxXHkPY'){ var p=prompt("Password:"); if(p!='verboten') return; }
-        document.getElementById('v-frame').src = "https://www.youtube.com/embed/" + v + "?autoplay=1";
+        // La radio continua a suonare anche se cambi stanza!
         document.getElementById('chat-frame').src = "https://chatroll.com/embed/chat/" + c + "&platform=html";
         var bs = document.getElementsByClassName('btn');
         for(var i=0; i<bs.length; i++) bs[i].classList.remove('active');
