@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Ambient Royal Edition</title>
+    <title>La Tana di Tigrotta - Royal Music</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -11,7 +11,6 @@
         .btn { background: #222; border: 1px solid var(--colore-tema); color: var(--colore-tema); padding: 6px 12px; cursor: pointer; border-radius: 20px; font-size: 11px; font-weight: bold; transition: 0.3s; }
         .active { background: var(--colore-tema); color: white; box-shadow: var(--glow); }
 
-        /* PLAYER AMBIENT DISCRETO */
         .ambient-player { margin-left: auto; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 15px; border: 1px dashed var(--colore-tema); }
         .ambient-player span { font-size: 10px; color: #888; text-transform: uppercase; }
 
@@ -40,12 +39,16 @@
         #right { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; }
         #chat-frame { width: 100%; height: 100%; border: none; }
 
+        /* Icona Tigre e Menu Smile */
         .smile-container { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column-reverse; align-items: center; }
         .smile-trigger { width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100; }
         .smile-menu { display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; box-shadow: var(--glow); justify-content: center; }
         .smile-menu span { font-size: 24px; cursor: pointer; }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
+
+        /* Lettore nascosto per le canzoni */
+        #hidden-player { width: 0; height: 0; position: absolute; visibility: hidden; }
     </style>
 </head>
 <body>
@@ -63,11 +66,12 @@
     </div>
 
     <div class="ambient-player">
-        <span>Mood Ambient:</span>
-        <button class="btn" id="playBtn" onclick="toggleAmbient()">PLAY 🎵</button>
-        <audio id="ambientAudio" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        <span>Canzoni Radio:</span>
+        <button class="btn" id="radioBtn" onclick="toggleRadio()">PLAY 🎶</button>
     </div>
 </nav>
+
+<iframe id="hidden-player" src="" allow="autoplay"></iframe>
 
 <div class="container">
     <div id="left">
@@ -78,7 +82,7 @@
 
         <h3>CONSOLE & STYLE</h3>
         <div class="console-box">
-            <input type="text" id="v-url" placeholder="YouTube Link...">
+            <input type="text" id="v-url" placeholder="Cerca o incolla...">
             <button onclick="playV()">VAI</button>
             <button onclick="openGame()" style="background: #ff69b4; color: white; box-shadow: 0 0 15px #ff69b4;">💄 BOUTIQUE GAMES</button>
             <button onclick="stopV()" style="background:#444;">OFF</button>
@@ -104,20 +108,21 @@
 </div>
 
 <script>
-    let isPlaying = false;
-    function toggleAmbient() {
-        const audio = document.getElementById('ambientAudio');
-        const btn = document.getElementById('playBtn');
-        if (!isPlaying) {
-            audio.play();
+    let radioOn = false;
+    function toggleRadio() {
+        const player = document.getElementById('hidden-player');
+        const btn = document.getElementById('radioBtn');
+        if (!radioOn) {
+            // Ho messo una playlist di canzoni pop/cantate famose
+            player.src = "https://www.youtube.com/embed/videoseries?list=PLMC9KNkIncKtPojQqxkg2GaonB9zFp45h&autoplay=1";
             btn.innerText = "STOP 🔇";
             btn.style.background = "#444";
         } else {
-            audio.pause();
-            btn.innerText = "PLAY 🎵";
+            player.src = "";
+            btn.innerText = "PLAY 🎶";
             btn.style.background = "var(--colore-tema)";
         }
-        isPlaying = !isPlaying;
+        radioOn = !radioOn;
     }
 
     function toggleSmiles() {
