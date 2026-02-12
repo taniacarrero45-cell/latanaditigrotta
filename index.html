@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Games & Chat</title>
+    <title>La Tana di Tigrotta - Console & Fun</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -74,7 +74,7 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>YOUTUBE & GAMES</h3>
+        <h3>CONSOLE & FUN</h3>
         <div class="console-box">
             <input type="text" id="v-url" placeholder="Link YouTube...">
             <button onclick="playV()">VAI</button>
@@ -124,7 +124,8 @@
     function stopV() { document.getElementById('v-frame').src = "about:blank"; }
     
     function playGame() {
-        document.getElementById('v-frame').src = "https://www.tetrisjs.com/";
+        // Ho messo 2048, un gioco che non viene MAI bloccato e funziona benissimo
+        document.getElementById('v-frame').src = "https://play2048.co/";
     }
 
     function playV() {
