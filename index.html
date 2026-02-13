@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>La Tana di Tigrotta - Photo & Style</title>
+    <title>La Tana di Tigrotta - Diamond Edition</title>
     <style>
         :root { --colore-tema: red; --glow: 0 0 10px red; }
         body { background: #000; margin: 0; font-family: sans-serif; color: white; overflow: hidden; }
@@ -18,14 +18,14 @@
         #left { width: 250px; padding: 10px; display: flex; flex-direction: column; align-items: center; background: #080808; border-right: 2px solid var(--colore-tema); box-shadow: var(--glow); overflow-y: auto; }
         
         .cam-placeholder { 
-            width: 200px; height: 180px; border: 3px solid var(--colore-tema); border-radius: 10px; 
+            width: 200px; height: 160px; border: 3px solid var(--colore-tema); border-radius: 10px; 
             background: url('https://i.imgur.com/8K5yY7u.png') center/cover; cursor: pointer; 
             position: relative; box-shadow: var(--glow); margin-bottom: 10px;
             display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
         }
         .cam-placeholder span { background: rgba(0,0,0,0.8); font-size: 10px; padding: 5px; width: 100%; text-align: center; color: var(--colore-tema); font-weight: bold; }
 
-        .display-screen { width: 200px; height: 120px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; margin-bottom: 10px; }
+        .display-screen { width: 200px; height: 110px; border: 1px solid var(--colore-tema); border-radius: 5px; overflow: hidden; background: #111; margin-bottom: 10px; }
         .display-screen iframe { width: 100%; height: 100%; border: none; }
 
         .console-box { width: 200px; display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
@@ -39,6 +39,10 @@
         .smile-trigger { width: 50px; height: 50px; background: #222; border: 2px solid var(--colore-tema); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; cursor: pointer; box-shadow: var(--glow); z-index: 100; }
         .smile-menu { display: none; background: rgba(17, 17, 17, 0.95); border: 1px solid var(--colore-tema); padding: 10px; border-radius: 10px; width: 150px; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; box-shadow: var(--glow); justify-content: center; }
         .smile-menu span { font-size: 24px; cursor: pointer; }
+
+        /* EFFETTO DIAMANTI */
+        .diamond { position: fixed; top: -50px; font-size: 24px; z-index: 999; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
 
         h3 { font-size: 10px; color: var(--colore-tema); text-transform: uppercase; margin: 5px 0; letter-spacing: 1px; }
     </style>
@@ -63,22 +67,25 @@
             <span>ENTRA NELLA TANA 🐯</span>
         </div>
 
-        <h3>PHOTO CONSOLE 📸</h3>
+        <h3>SPECIAL EFFECTS ✨</h3>
         <div class="console-box">
-            <button onclick="openUpload()" style="background: #00ff00; color: black; box-shadow: 0 0 15px #00ff00;">📸 CARICA FOTO QUI</button>
-            <p style="font-size: 9px; color: #777; text-align: center; margin: 0;">Carica, copia il link e incollalo in chat!</p>
+            <button onclick="startDiamonds()" style="background: linear-gradient(45deg, #00ffff, #fff); color: #000; box-shadow: 0 0 15px #00ffff; border: 2px solid white;">💎 DIAMOND SHOWER</button>
+        </div>
+
+        <h3>LADY TOOLS 📸</h3>
+        <div class="console-box">
+            <button onclick="openUpload()" style="background: #00ff00; color: black;">📸 PHOTO UP</button>
         </div>
 
         <h3>TV CONSOLE</h3>
         <div class="display-screen">
             <iframe id="v-frame" src="https://www.youtube.com/embed/do7qx_W3HzA" allow="autoplay; fullscreen"></iframe>
         </div>
-        <div class="console-box" style="margin-bottom: 10px;">
-            <input type="text" id="v-url" placeholder="Link YouTube...">
+        <div class="console-box">
+            <input type="text" id="v-url" placeholder="YouTube Link...">
             <button onclick="playV()" style="background: var(--colore-tema); color: white;">VAI</button>
+            <button class="btn" onclick="openGame()" style="background: #ff69b4; color: white; border: none; margin-top:5px;">💄 GAMES</button>
         </div>
-
-        <button class="btn" onclick="openGame()" style="background: #ff69b4; color: white; width: 100%; border: none; box-shadow: 0 0 10px #ff69b4;">💄 BOUTIQUE GAMES</button>
     </div>
 
     <div id="right">
@@ -97,6 +104,24 @@
 </div>
 
 <script>
+    // Funzione per la pioggia di diamanti
+    function startDiamonds() {
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const diamond = document.createElement('div');
+                diamond.className = 'diamond';
+                diamond.innerText = '💎';
+                diamond.style.left = Math.random() * 100 + 'vw';
+                diamond.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                diamond.style.opacity = Math.random();
+                document.body.appendChild(diamond);
+                
+                // Rimuove il diamante dopo che è caduto per non rallentare il sito
+                setTimeout(() => diamond.remove(), 5000);
+            }, i * 150);
+        }
+    }
+
     let radioOn = false;
     function toggleRadio() {
         const audio = document.getElementById('audio-stream');
@@ -106,11 +131,7 @@
         radioOn = !radioOn;
     }
 
-    function openUpload() {
-        // Apre il caricatore rapido
-        window.open('https://it.imgbb.com/', 'uploadBox', 'width=600,height=500');
-    }
-
+    function openUpload() { window.open('https://it.imgbb.com/', 'uploadBox', 'width=600,height=500'); }
     function playV() {
         var u = document.getElementById('v-url').value.trim();
         var r = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -131,6 +152,7 @@
     function openGame() { window.open('https://www.girlsgogames.it/giochi/moda', 'gameBox', 'width=1000,height=700'); }
     function toggleSmiles() { var menu = document.getElementById('sm-menu'); menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex'; }
     function cp(e) { navigator.clipboard.writeText(e); toggleSmiles(); }
+    function changeColor(color) { document.documentElement.style.setProperty('--colore-tema', color); }
 </script>
 </body>
 </html>
